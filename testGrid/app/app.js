@@ -61,7 +61,7 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
   $scope.gridOptions1 = {
     enableSorting: true,
 
-    enableGridMenu: 		true,
+    //enableGridMenu: 		true,
     showColumnMenu: 		true,
     exporterMenuLabel :     "MyExport",
     enableSelectAll: true,
@@ -88,19 +88,13 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
     },
     data: [
       {
-        "name": "Cox",
-        "gender": "F",
-        "company": "Co1"
+        "name": "Cox",        "gender": "F",        "company": "Co1"
       },
       {
-        "name": "John",
-        "gender": "M",
-        "company": "Co2"
+        "name": "John",        "gender": "M",        "company": "Co2"
       },
       {
-        "name": "Janme",
-        "gender": "F",
-        "company": "Co3"
+        "name": "Janme",        "gender": "F",        "company": "Co3"
       }
     ],
 
@@ -121,12 +115,46 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
     $scope.gridApi.core.addToGridMenu($scope.gridApi.grid,
         [ { title: 'Sel All', order: 100},
           { title: 'DeSel All', order: 101}]);
-  }
+  };
+
+  $scope.onGridInitialized = function() {
+    console.debug("onGridInitialized arg = ", arguments)
+  };
+
+  $scope.clientCallbackInterfaceObject = {
+     onInitDone: function(gridApi, IMyGridInterface) {
+        console.debug("onInitDone args ", arguments);
+
+       // call directive API
+       IMyGridInterface.moveToRow(5);
+     }
+  };
 
   console.debug("Outter $scope ", $scope);
 }]);
 
+/////////////////////////////////////////////////////////
+//
 myApp.directive('myGrid', function() {
+
+  var _option = {
+    gridOptions : "="
+  };
+
+  var _gridApi;
+  var self = this;
+
+  var scopeOptions = {
+    gridOptions: '=',
+    onInitCallback : "&",
+    clientCallbackInterface : "="
+  };
+
+  var IMyGridInterface = {
+      moveToRow: function(row) {
+        console.debug("DIRECTIVE: moveToRow ", arguments);
+      }
+  };
 
   return {
     restrict: 'EA',
@@ -135,9 +163,9 @@ myApp.directive('myGrid', function() {
     //scope: true,  // inherit parent scope
     // scope: {},   // isolated scope
 
-    scope: {
-      gridOptions: '='
-    },
+    scope: scopeOptions,
+
+
 
     template: function(elem, attr) {
       console.debug("directive template called. args ", arguments);
@@ -176,11 +204,30 @@ myApp.directive('myGrid', function() {
         scope.greeting = 'Hey, I am ';
         scope.ui_grid_importer  = "ui-grid-importer";
 
+        scope.gridOptions.data[0] = {
+          "name": "CoxNew",        "gender": "F",        "company": "Co1New"
+        };
+
+        // add our own customization
+        scope.gridOptions.enableGridMenu = 		true;
+        scope.gridOptions.onRegisterApi = function( gridApi ) {
+            //$scope.gridApi = gridApi;
+            console.debug("DIRECTIVE: onRegisterApi arg ", arguments);
+            _gridApi = gridApi;
+
+            scope.clientCallbackInterface.onInitDone(gridApi, IMyGridInterface);
+            scope.onInitCallback(gridApi)
+        };
+
         console.debug("pre link() args ", arguments);
       },
       post : function (scope, elem, attr) {
-        console.debug("link post function scope.griddata ", scope.griddata);
+        console.debug("link post function scope  ", scope, ", _gridApi = ", _gridApi);
+        scope.onInitCallback(self);
 
+        setTimeout(function() {
+        //  scope.clientCallbackInterface.onInitDone(_gridApi);
+        }, 2000);
       }
     }
   };
