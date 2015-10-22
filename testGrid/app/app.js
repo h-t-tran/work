@@ -86,13 +86,30 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
     onRegisterApi: function( gridApi ) {
       $scope.gridApi = gridApi;
     },
-    importerDataAddCallback: function ( grid, newObjects ) {
-      console.debug("importerDataAddCallback")
-      $scope.data = $scope.data.concat( newObjects );
-    },
+    data: [
+      {
+        "name": "Cox",
+        "gender": "F",
+        "company": "Co1"
+      },
+      {
+        "name": "John",
+        "gender": "M",
+        "company": "Co2"
+      },
+      {
+        "name": "Janme",
+        "gender": "F",
+        "company": "Co3"
+      }
+    ],
+
+    //importerDataAddCallback: function ( grid, newObjects ) {
+    //  console.debug("importerDataAddCallback")
+    //  $scope.data = $scope.data.concat( newObjects );
+    //},
   };
 
-  $scope.uiGridImporter = "ui-grid-importer",
 
   $scope.gridOptions1.data = $scope.myData2;
 
@@ -105,31 +122,37 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
         [ { title: 'Sel All', order: 100},
           { title: 'DeSel All', order: 101}]);
   }
+
+  console.debug("Outter $scope ", $scope);
 }]);
 
 myApp.directive('myGrid', function() {
-  var template1 = '<div ui-grid="gridOptions1" class="grid">';
-  var template2 = '<div ui-grid="gridOptions1" ui-grid-importer ui-grid-exporter class="grid">';
-  var template = template2;
+
   return {
+    restrict: 'EA',
+
+    //scope: false,  // just use parent  scope
+    //scope: true,  // inherit parent scope
+    // scope: {},   // isolated scope
+
+    scope: {
+      gridOptions: '='
+    },
+
     template: function(elem, attr) {
       console.debug("directive template called. args ", arguments);
       console.debug("attr ", attr);
-      //if(attr.attr1 === "1") {
-      //  console.debug("Creating a barebone grid template");
-      //  template = template1;
-      //}else {
-      //  console.debug("Creating a grid with export options template");
-      //  template = template2;
-      //}
-console.debug("attr.uiGridImporter ", attr.uiGridImporter)
-      var template = '<div ui-grid="gridOptions1"  class="grid"';
+
+      console.debug("attr.uiGridImporter ", attr.uiGridImporter)
+
+      var template = '<div ui-grid="gridOptions"  class="grid"';
+
       if(attr.enableUiGridImporter === "true") {
-        console.debug("Creating a grid with ui-grid-importer options template");
+        //console.debug("Creating a grid with ui-grid-importer options template");
         template  += " ui-grid-importer ";
       }
       if(attr.enableUiGridExporter === "true") {
-        console.debug("Creating a grid with ui-grid-importer options template");
+        //console.debug("Creating a grid with ui-grid-importer options template");
         template  += " ui-grid-exporter ";
       }
 
@@ -146,6 +169,7 @@ console.debug("attr.uiGridImporter ", attr.uiGridImporter)
     //},
 
 
+
     link : {
       pre: function (scope, elem, attr) {
         scope.name = 'Paul';
@@ -153,6 +177,10 @@ console.debug("attr.uiGridImporter ", attr.uiGridImporter)
         scope.ui_grid_importer  = "ui-grid-importer";
 
         console.debug("pre link() args ", arguments);
+      },
+      post : function (scope, elem, attr) {
+        console.debug("link post function scope.griddata ", scope.griddata);
+
       }
     }
   };
