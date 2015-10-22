@@ -63,11 +63,11 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
 
     enableGridMenu: 		true,
     showColumnMenu: 		true,
-    exporterMenuLabel :     "My Export",
+    exporterMenuLabel :     "MyExport",
     enableSelectAll: true,
 
     columnDefs: [
-      { field: 'name', name : "TheName" },
+      { field: 'name', name : "TheName", enableSorting: true, enableCellEdit: true },
       {
         field: 'gender', name: "M/F",
 
@@ -92,6 +92,8 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
     },
   };
 
+  $scope.uiGridImporter = "ui-grid-importer",
+
   $scope.gridOptions1.data = $scope.myData2;
 
 
@@ -104,3 +106,40 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
           { title: 'DeSel All', order: 101}]);
   }
 }]);
+
+myApp.directive('myGrid', function() {
+  var template1 = '<div ui-grid="gridOptions1" class="grid">';
+  var template2 = '<div ui-grid="gridOptions1" ui-grid-importer ui-grid-exporter class="grid">';
+  var template = template2;
+  return {
+    template: function(elem, attr) {
+      console.debug("directive template called. args ", arguments);
+      console.debug("attr ", attr)
+      if(attr.attr1 === "1") {
+        console.debug("Creating a barebone grid template");
+        template = template1;
+      }
+      else {
+        console.debug("Creating a grid with export options template");
+        template = template2;
+      }
+      return template;
+    },
+
+    //template: '<div ui-grid="gridOptions1"  ui-grid-exporter class="grid">'
+    //link: function(scope, element, attrs) {
+    //  console.debug(" link() args ", arguments);
+    //},
+
+
+    link : {
+      pre: function (scope, elem, attr) {
+        scope.name = 'Paul';
+        scope.greeting = 'Hey, I am ';
+        scope.ui_grid_importer  = "ui-grid-importer";
+
+        console.debug("pre link() args ", arguments);
+      }
+    }
+  };
+});

@@ -33,11 +33,25 @@
         <div ui-grid="gridOptions1" class="grid"
                 ui-grid-importer
                 ui-grid-exporter
-                ui-grid-selection>
+                ui-grid-selection
+
+                 ui-grid-resize-columns
+                >
         </div>
         <button ng-click="onClickHandler()" >ClickMe</button>
+        <br/>
+        <my-grid attr1="2"></my-grid>
     </div>
 
+<!--
+              ui-grid-importer
+                ui-grid-exporter
+                ui-grid-selection
+
+    ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-pinning
+    ui-grid-selection ui-grid-move-columns ui-grid-importer
+    ui-grid-exporter ui-grid-grouping
+-->
 
 </body>
 </html>
