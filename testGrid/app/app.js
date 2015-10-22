@@ -9,7 +9,8 @@ var myApp = angular.module('myApp', [
   'ngTouch',
   'ui.grid',
   'ui.grid.importer',
-  'ui.grid.exporter'
+  'ui.grid.exporter',
+    'ui.grid.edit'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});
@@ -61,7 +62,7 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
   $scope.gridOptions1 = {
     enableSorting: true,
 
-    //enableGridMenu: 		true,
+    enableGridMenu: 		true,
     showColumnMenu: 		true,
     exporterMenuLabel :     "MyExport",
     enableSelectAll: true,
@@ -69,7 +70,7 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
     columnDefs: [
       { field: 'name', name : "TheName", enableSorting: true, enableCellEdit: true },
       {
-        field: 'gender', name: "M/F",
+        field: 'gender', name: "M/F", editableCellTemplate: 'ui-grid/dropdownEditor',
 
         // add to the column dropdown menu.
         menuItems: [

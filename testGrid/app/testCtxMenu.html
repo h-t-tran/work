@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Context Menu</title>
+
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>-->
+    <script src="bower_components/angular/angular.js"></script>
+
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://ianwalter.github.io/flat-github-ribbon/dist/flat-github-ribbon.min.css" />
+
+
+    <script src="lib/context-menu/ng-context-menu.js"></script>
+
+    <script src="app.js"></script>
+
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+        .highlight {
+            color: #fff;
+            background-color: #3498db;
+        }
+        .expanded {
+            height: 400px;
+        }
+        .position-fixed {
+            position: fixed;
+        }
+    </style>
+
+    <script>
+        var myApp = angular.module('myApp', ['ngRoute', 'ng-context-menu']);
+        myApp.controller('MainCtrl', ['$scope', function ($scope) {
+            console.debug("main controller");
+
+            $scope.addPanel = function() {
+                console.debug("addPanel from context menu")
+            }
+        }]);
+    </script>
+</head>
+<body>
+<div ng-controller="MainCtrl" style="background-color:red;height:300px;width:300px">
+
+    <div context-menu class="panel panel-default position-fixed"
+         style="background-color:yellow;height:100px;width:300px"
+         data-target="menu-1"
+         ng-class="{ 'highlight': highlight, 'expanded' : expanded }">Right click to see ctx menu
+    </div>
+
+
+    <div class="dropdown position-fixed" id="menu-1">
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a class="pointer" role="menuitem" tabindex="1"
+                   ng-click="panel.highlight = true">
+                    Select Panel
+                </a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="2"
+                   ng-click="panel.highlight = false">
+                    Deselect Panel
+                </a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="3"
+                   ng-click="panel.expanded = true">
+                    Expand Panel
+                </a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="4"
+                   ng-click="panel.expanded = false">
+                    Contract Panel
+                </a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="5"
+                   ng-click="addPanel()">
+                    Add a panel
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/ianwalter/ng-context-menu"
+                   role="menuitem"
+                   tabindex="-1">
+                    ng-context-menu on GitHub
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+</html>
