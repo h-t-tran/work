@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="app.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap3.3.4/css/bootstrap.min.css" />
+
+    <script src="../lib/context-menu/ng-context-menu.js"></script>
+
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="./app.js"></script>
+
+    <link rel="styleSheet" href="../bower_components/ui-grid-3.0.7/ui-grid.min.css"/>
+    <script src="../bower_components/ui-grid-3.0.7/ui-grid.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+        .highlight {
+            color: #fff;
+            background-color: #3498db;
+        }
+        .expanded {
+            height: 400px;
+        }
+        .position-fixed {
+            position: fixed;
+        }
+    </style>
+
+</head>
+<body>
+    <div ng-controller="MainCtrl">
+
+        <button ng-click="onClickHandler()" >ClickMe</button>
+
+
+        <div>Right click to show context menu</div>
+        <div context-menu
+             data-target="menu-1"
+             ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
+            <div ui-grid="gridOptions1" class="grid"  ui-grid-edit></div>
+        </div>
+
+
+        <div class="dropdown position-fixed" id="menu-1">
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a class="pointer" role="menuitem" tabindex="1"
+                       ng-click="panel.highlight = true">
+                        Select Panel
+                    </a>
+                </li>
+                <li>
+                    <a class="pointer" role="menuitem" tabindex="2"
+                       ng-show="true"
+                       ng-click="onDeselect()">
+                        Deselect Panel
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+<!--
+              ui-grid-importer
+                ui-grid-exporter
+                ui-grid-selection
+
+    ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-pinning
+    ui-grid-selection ui-grid-move-columns ui-grid-importer
+    ui-grid-exporter ui-grid-grouping
+-->
+
+</body>
+</html>

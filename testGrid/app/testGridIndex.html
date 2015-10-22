@@ -12,6 +12,9 @@
     <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap3.3.4/css/bootstrap.min.css" />
+
+    <script src="lib/context-menu/ng-context-menu.js"></script>
 
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="app.js"></script>
@@ -26,6 +29,22 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="app.js"></script>
 
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+        .highlight {
+            color: #fff;
+            background-color: #3498db;
+        }
+        .expanded {
+            height: 400px;
+        }
+        .position-fixed {
+            position: fixed;
+        }
+    </style>
+
 </head>
 <body>
     <div ng-controller="MainCtrl">
@@ -35,15 +54,6 @@
             >
         </div>
 
-        <button ng-click="onClickHandler()" >ClickMe</button>
-        <br/>
-        <my-grid attr1="2"  enable-ui-grid-importer="true"
-                            enable-ui-grid-exporter="true"
-                            grid-options="gridOptions1"
-                            on-init-callback="onGridInitialized(ufsUnfiedGrid, gridApi, grid)"
-                            client-callback-interface="clientCallbackInterfaceObject"
-                ></my-grid>
-        <!--<my-grid attr1="2" ui-grid-importer="true" ui-grid-exporter="false"></my-grid>-->
     </div>
 
 <!--

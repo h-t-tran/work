@@ -8,9 +8,9 @@
     <script src="bower_components/angular/angular.js"></script>
 
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="http://ianwalter.github.io/flat-github-ribbon/dist/flat-github-ribbon.min.css" />
-
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />-->
+    <!--<link rel="stylesheet" href="http://ianwalter.github.io/flat-github-ribbon/dist/flat-github-ribbon.min.css" />-->
+    <link rel="stylesheet" href="lib/bootstrap3.3.4/css/bootstrap.min.css" />
 
     <script src="lib/context-menu/ng-context-menu.js"></script>
 
@@ -37,14 +37,24 @@
         myApp.controller('MainCtrl', ['$scope', function ($scope) {
             console.debug("main controller");
 
+            $scope.showDeselect = true;
+
             $scope.addPanel = function() {
                 console.debug("addPanel from context menu")
+            };
+            $scope.onClickHandler = function() {
+                $scope.showDeselect = ! $scope.showDeselect;
+            };
+            $scope.onDeselect = function() {
+                console.debug("onDeselect")
             }
         }]);
     </script>
 </head>
 <body>
 <div ng-controller="MainCtrl" style="background-color:red;height:300px;width:300px">
+
+    <button ng-click="onClickHandler()" >ClickMe</button>
 
     <div context-menu class="panel panel-default position-fixed"
          style="background-color:yellow;height:100px;width:300px"
@@ -63,7 +73,8 @@
             </li>
             <li>
                 <a class="pointer" role="menuitem" tabindex="2"
-                   ng-click="panel.highlight = false">
+                   ng-show="showDeselect"
+                   ng-click="onDeselect()">
                     Deselect Panel
                 </a>
             </li>
