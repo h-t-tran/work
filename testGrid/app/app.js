@@ -117,13 +117,13 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
           { title: 'DeSel All', order: 101}]);
   };
 
-  $scope.onGridInitialized = function() {
-    console.debug("onGridInitialized arg = ", arguments)
+  $scope.onGridInitialized = function(ufsUnfiedGrid, gridApi, grid) {
+    console.debug("CLIENT: onGridInitialized arg = ", arguments)
   };
 
   $scope.clientCallbackInterfaceObject = {
      onInitDone: function(gridApi, IMyGridInterface) {
-        console.debug("onInitDone args ", arguments);
+        console.debug("CLIENT: onInitDone args ", arguments);
 
        // call directive API
        IMyGridInterface.moveToRow(5);
@@ -216,18 +216,24 @@ myApp.directive('myGrid', function() {
             _gridApi = gridApi;
 
             scope.clientCallbackInterface.onInitDone(gridApi, IMyGridInterface);
-            scope.onInitCallback(gridApi)
+            scope.onInitCallback({
+              // these properties must match those in the markup.
+              //  on-init-callback="onGridInitialized(ufsUnfiedGrid, gridApi, grid)"
+              ufsUnfiedGrid: IMyGridInterface,
+              gridApi: gridApi,
+              grid: gridApi.grid
+            })
         };
 
         console.debug("pre link() args ", arguments);
       },
       post : function (scope, elem, attr) {
         console.debug("link post function scope  ", scope, ", _gridApi = ", _gridApi);
-        scope.onInitCallback(self);
-
-        setTimeout(function() {
-        //  scope.clientCallbackInterface.onInitDone(_gridApi);
-        }, 2000);
+        //scope.onInitCallback(self);
+        //
+        //setTimeout(function() {
+        ////  scope.clientCallbackInterface.onInitDone(_gridApi);
+        //}, 2000);
       }
     }
   };
