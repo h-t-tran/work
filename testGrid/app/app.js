@@ -114,15 +114,29 @@ myApp.directive('myGrid', function() {
   return {
     template: function(elem, attr) {
       console.debug("directive template called. args ", arguments);
-      console.debug("attr ", attr)
-      if(attr.attr1 === "1") {
-        console.debug("Creating a barebone grid template");
-        template = template1;
+      console.debug("attr ", attr);
+      //if(attr.attr1 === "1") {
+      //  console.debug("Creating a barebone grid template");
+      //  template = template1;
+      //}else {
+      //  console.debug("Creating a grid with export options template");
+      //  template = template2;
+      //}
+console.debug("attr.uiGridImporter ", attr.uiGridImporter)
+      var template = '<div ui-grid="gridOptions1"  class="grid"';
+      if(attr.enableUiGridImporter === "true") {
+        console.debug("Creating a grid with ui-grid-importer options template");
+        template  += " ui-grid-importer ";
       }
-      else {
-        console.debug("Creating a grid with export options template");
-        template = template2;
+      if(attr.enableUiGridExporter === "true") {
+        console.debug("Creating a grid with ui-grid-importer options template");
+        template  += " ui-grid-exporter ";
       }
+
+      template += ">";
+
+      //template='<div ui-grid="gridOptions1"  class="grid" ui-grid-importer>';
+      console.debug("  template ", template);
       return template;
     },
 
