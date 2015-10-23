@@ -146,6 +146,21 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
   };
   $scope.myContextMenuText = '<li><a class="pointer" role="menuitem" ng-show="true">Watchlist</a></li>';
 
+  $scope.canCopy = function() {
+    return true;
+  };
+
+  $scope.canDelete = function() {
+    return true;
+  };
+
+  $scope.onCopy = function() {
+    console.debug("CLIENT: onCopy")
+  };
+
+  $scope.onDelete = function() {
+    console.debug("CLIENT: onDelete")
+  };
 
   console.debug("Outter $scope ", $scope);
 }]);
@@ -187,6 +202,25 @@ myApp.directive('myGrid', function() {
       console.debug("template args ", arguments);
       console.debug("attr.myContextMenu ", attr.myContextMenu);
 
+      var json = attr.myContextMenuStructure;
+      var menuItems = JSON.parse(json);
+      //console.debug("DIRECTIVE menuItems ", menuItems);
+
+      var clientMenuItemHtml = "";
+      angular.forEach(menuItems, function(value, key) {
+        //console.debug(key, ': ', value);
+        clientMenuItemHtml += '<li><a class="pointer" role="menuitem"' +
+                                      ' ng-show="' +  value.canShow + '"' +
+                                      ' ng-click="' +  value.onCommand + '">' +
+                                    value.label + '</a></li>';
+
+      });
+//      console.debug("1 clientMenuItemHtml = ", clientMenuItemHtml);
+//      clientMenuItemHtml = '<li><a class="pointer" ng-click="$parent.onWatchlist()" role="menuitem" ng-show="true">Send To Map</a></li>';
+//      clientMenuItemHtml = '<li><a class="pointer" role="menuitem" ng-show="true ng-click="$parent.onWatchlist()">Copy</a></li>';
+//      console.debug("2 clientMenuItemHtml = ", clientMenuItemHtml);
+
+//clientMenuItemHtml = '<li><a class="pointer" role="menuitem" ng-show="$parent.canCopy" ng-click="$parent.onCopy()">Copy</a></li><li><a class="pointer" role="menuitem" ng-show="$parent.canDelete()" ng-click="$parent.onDelete()">Delete</a></li>';
 
       // style='background-color:red;height:500px'
       var template =
@@ -196,18 +230,20 @@ myApp.directive('myGrid', function() {
       '<div class="dropdown position-fixed" id="menu-1">' +
       '  <ul class="dropdown-menu" role="menu">' +
       '    <li>' +
-      '     <a class="pointer" role="menuitem" tabindex="1" ng-show="true">Delete In Directive</a>' +
+      '     <a class="pointer" role="menuitem" tabindex="1" ng-show="true" ng-click="onSelect()">Select All</a>' +
       '    </li>' +
       '    <li>' +
                 // onDeselect() calls the directive function.
-      '      <a class="pointer" role="menuitem" tabindex="2" ng-show="true" ng-click="onDeselect()">Copy In Directive</a>' +
+      '      <a class="pointer" role="menuitem" tabindex="2" ng-show="true" ng-click="onDeselect()">Deselect All</a>' +
       '    </li>' +
 
-      attr.myContextMenu +
+      //attr.myContextMenu +
+      clientMenuItemHtml +
 
       '   </ul>' +
       '</div>';
 
+      //console.debug("template = ", template)
       return template;
 
     },
@@ -251,8 +287,11 @@ myApp.directive('myGrid', function() {
         scope.onDeselect = function() {
           console.debug("DIRECTIVE: onDeselect");
         };
+        scope.onSelect = function() {
+          console.debug("DIRECTIVE: onSelect");
+        };
 
-        console.debug("pre link() args ", arguments);
+        //console.debug("pre link() args ", arguments);
       },
       post : function (scope, elem, attr) {
         console.debug("link post function scope  args ", arguments);

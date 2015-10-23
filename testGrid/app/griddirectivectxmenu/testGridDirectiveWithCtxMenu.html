@@ -51,15 +51,29 @@
             -->
             <my-grid grid-options="gridOptions1"
                      my-context-menu='<li>
-                                        <a class="pointer"
-                                           ng-click="$parent.onWatchlist()"
-                                           role="menuitem"
-                                           ng-show="true">Watchlist
+                                        <a class="pointer" ng-click="$parent.onWatchlist()"
+                                           role="menuitem" ng-show="true">Send To Watchlist
                                         </a>
-                                      </li>'
+                                      </li>
+                                      <li>
+                                        <a class="pointer" ng-click="$parent.onWatchlist()"
+                                           role="menuitem" ng-show="true">Send To Map
+                                        </a>
+                                      </li>
+                                      '
+                     my-context-menu-structure = '
+                         [
+                            {"label":"Copy","canShow":"$parent.canCopy","onCommand":"$parent.onCopy()"},
+                            {"label":"Delete","canShow":"$parent.canDelete()","onCommand":"$parent.onDelete()"}
+                         ]
+                         '
                     >
             </my-grid>
 
+        <!--my-context-menu-structure = '-->
+        <!--[{"label":"Copy","canShow":"true","onCommand":"$parent.onWatchlist()"},{"label":"Delete","canShow":"canDelete()","onCommand":"onDelete()"}]-->
+        <!--'-->
+        <!-- -->
             <!--<my-grid grid-options="gridOptions1"-->
                      <!--my-context-menu='myContextMenuText'>Watchlist</a></li>'>-->
             <!--</my-grid>-->
