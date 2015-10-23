@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="app.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap3.3.4/css/bootstrap.min.css" />
+
+    <script src="../lib/context-menu/ng-context-menu.js"></script>
+
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="./app.js"></script>
+
+    <link rel="styleSheet" href="../bower_components/ui-grid-3.0.7/ui-grid.min.css"/>
+    <script src="../bower_components/ui-grid-3.0.7/ui-grid.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+        .highlight {
+            color: #fff;
+            background-color: #3498db;
+        }
+        .expanded {
+            height: 400px;
+        }
+        .position-fixed {
+            position: fixed;
+        }
+    </style>
+
+</head>
+<body>
+    <div ng-controller="MainCtrl">
+
+        <div ng-controller="MainCtrl">
+            <button ng-click="onClickHandler()" >ClickMe</button>
+            <br/>
+            <my-grid grid-options="gridOptions1"
+                     my-context-menu='<li><a class="pointer" role="menuitem" ng-show="true">Watchlist</a></li>'></my-grid>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

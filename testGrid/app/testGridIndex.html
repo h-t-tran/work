@@ -48,12 +48,14 @@
 </head>
 <body>
     <div ng-controller="MainCtrl">
-        <!--<div id="grid1" ui-grid-edit ui-grid="{ data: myData }" class="grid"></div>-->
-        <div ui-grid="gridOptions1" class="grid"
-             ui-grid-edit
-            >
-        </div>
-
+        <button ng-click="onClickHandler()" >ClickMe</button>
+        <br/>
+        <my-grid attr1="2"  enable-ui-grid-importer="true"
+                 enable-ui-grid-exporter="true"
+                 grid-options="gridOptions1"
+                 on-init-callback="onGridInitialized(ufsUnfiedGrid, gridApi, grid)"
+                 client-callback-interface="clientCallbackInterfaceObject"
+                ></my-grid>
     </div>
 
 <!--
