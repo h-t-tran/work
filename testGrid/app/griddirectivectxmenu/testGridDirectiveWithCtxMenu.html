@@ -43,12 +43,26 @@
 <body>
     <div ng-controller="MainCtrl">
 
-        <div ng-controller="MainCtrl">
             <button ng-click="onClickHandler()" >ClickMe</button>
             <br/>
+
+            <!-- ng-click="$parent.onWatchlist()" to invoke your own function.
+                 ng-click="onWatchlist()" calls the directive version of onWatchlist()
+            -->
             <my-grid grid-options="gridOptions1"
-                     my-context-menu='<li><a class="pointer" role="menuitem" ng-show="true">Watchlist</a></li>'></my-grid>
-        </div>
+                     my-context-menu='<li>
+                                        <a class="pointer"
+                                           ng-click="$parent.onWatchlist()"
+                                           role="menuitem"
+                                           ng-show="true">Watchlist
+                                        </a>
+                                      </li>'
+                    >
+            </my-grid>
+
+            <!--<my-grid grid-options="gridOptions1"-->
+                     <!--my-context-menu='myContextMenuText'>Watchlist</a></li>'>-->
+            <!--</my-grid>-->
 
     </div>
 

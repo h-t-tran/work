@@ -137,7 +137,14 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
     console.debug("Client: onDeselect");
   };
 
-  $scope.myContextMenu = '<li><a class="pointer" role="menuitem" ng-show="true">Watchlist</a></li>';
+  $scope.onWatchlist = function() {
+    console.debug("Client: onWatchlist");
+  };
+
+  $scope.myContextMenu = function() {
+    return '<li><a class="pointer" role="menuitem" ng-show="true">Watchlist</a></li>';
+  };
+  $scope.myContextMenuText = '<li><a class="pointer" role="menuitem" ng-show="true">Watchlist</a></li>';
 
 
   console.debug("Outter $scope ", $scope);
@@ -154,12 +161,6 @@ myApp.directive('myGrid', function() {
   var _gridApi;
   var self = this;
 
-  var scopeOptions = {
-    gridOptions: '=',
-    onInitCallback : "&",
-    clientCallbackInterface : "="
-  };
-
   var IMyGridInterface = {
       moveToRow: function(row) {
         console.debug("DIRECTIVE: moveToRow ", arguments);
@@ -173,12 +174,17 @@ myApp.directive('myGrid', function() {
     //scope: true,  // inherit parent scope
     // scope: {},   // isolated scope
 
-    scope: scopeOptions,
+    scope: {
+      gridOptions: '=',
+      onInitCallback : "&",
+      clientCallbackInterface : "="
+    },
 
 
 
     template: function(elem, attr) {
 
+      console.debug("template args ", arguments);
       console.debug("attr.myContextMenu ", attr.myContextMenu);
 
 
@@ -219,6 +225,11 @@ myApp.directive('myGrid', function() {
         scope.greeting = 'Hey, I am ';
         scope.ui_grid_importer  = "ui-grid-importer";
 
+        // not good.
+        //scope.gridOptions = '=';
+        //scope.onInitCallback = "&";
+        //scope.clientCallbackInterface = "=";
+
         scope.gridOptions.data[0] = {
           "name": "CoxNew",        "gender": "F",        "company": "Co1New"
         };
@@ -232,6 +243,11 @@ myApp.directive('myGrid', function() {
 
         };
 
+
+        //scope.onWatchlist = function() {
+        //  console.debug("DIRECTIVE: onWatchlist");
+        //};
+
         scope.onDeselect = function() {
           console.debug("DIRECTIVE: onDeselect");
         };
@@ -239,7 +255,7 @@ myApp.directive('myGrid', function() {
         console.debug("pre link() args ", arguments);
       },
       post : function (scope, elem, attr) {
-        console.debug("link post function scope  ", scope, ", _gridApi = ", _gridApi);
+        console.debug("link post function scope  args ", arguments);
       }
     }
   };
