@@ -5,7 +5,8 @@ var myApp = angular.module('myApp', [
   'ngRoute',
   'ui.grid',
   'ng-context-menu',
-    'ui.grid.edit'
+    'ui.grid.edit',
+    'ui.grid.selection'
 ]).
 config(['$routeProvider', function($routeProvider) {
   //$routeProvider.otherwise({redirectTo: '/view1'});
@@ -81,6 +82,7 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
     ],
     onRegisterApi: function( gridApi ) {
       $scope.gridApi = gridApi;
+      console.debug("gridApi ", gridApi);
     },
     data: [
       {
@@ -126,6 +128,10 @@ myApp.controller('MainCtrl', ['$scope', function ($scope) {
      }
   };
 
+  $scope.canCopy = function() {
+    //return $scope.gridApi.grid.rows.length > 0;
+    return $scope.gridApi.selection.getSelectedRows().length > 0;
+  }
   console.debug("Outter $scope ", $scope);
 }]);
 

@@ -50,23 +50,22 @@
         <div context-menu
              data-target="menu-1"
              ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
-            <div ui-grid="gridOptions1" class="grid"  ui-grid-edit></div>
+            <div ui-grid="gridOptions1" class="grid"  ui-grid-edit ui-grid-selection></div>
         </div>
 
 
         <div class="dropdown position-fixed" id="menu-1">
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a class="pointer" role="menuitem" tabindex="1"
-                       ng-click="panel.highlight = true">
-                        Select Panel
+                    <a class="pointer" role="menuitem" tabindex="1">
+                        Delete
                     </a>
                 </li>
                 <li>
                     <a class="pointer" role="menuitem" tabindex="2"
-                       ng-show="true"
+                       ng-show="canCopy()"
                        ng-click="onDeselect()">
-                        Deselect Panel
+                        Copy
                     </a>
                 </li>
 
