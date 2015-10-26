@@ -2,15 +2,15 @@
 
 // Declare app level module which depends on views, and components
 var myApp = angular.module('myApp', [
-  'ngRoute',
+  //'ngRoute',
   'ui.grid',
   'ng-context-menu',
     'ui.grid.edit',
     'ui.grid.selection'
-]).
-config(['$routeProvider', function($routeProvider) {
-  //$routeProvider.otherwise({redirectTo: '/view1'});
-}]);
+]);
+//config(['$routeProvider', function($routeProvider) {
+//  //$routeProvider.otherwise({redirectTo: '/view1'});
+//}]);
 
 
 myApp.controller('MainCtrl', ['$scope', function ($scope) {
