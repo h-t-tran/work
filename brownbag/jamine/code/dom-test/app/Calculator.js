@@ -27,7 +27,7 @@ Calculator.prototype.syncAdd = function(x, y) {
 };
 
 Calculator.prototype.addAndDisplay = function(x, y, domEle) {
-	$(domEle).html(a + b);
+	$(domEle).val(parseInt(x) + parseInt(y));
 };
 
 
