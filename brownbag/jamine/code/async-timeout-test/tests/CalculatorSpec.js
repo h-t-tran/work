@@ -11,7 +11,18 @@ describe("Calculator", function() {
 		});
 
 		it('should fail to return 5 because it is async', function() {
+			//
+			// Arrange
+			//
+
+			//
+			// Act
+			//
 			_calc.asyncAdd(2,3);
+
+			//
+			// Assert
+			//
 			expect(_calc._result).toBe(5);
 		});
 	});
@@ -28,9 +39,20 @@ describe("Calculator", function() {
 		// If done() is not called, then the test fails.
 		//
 		it('should have result equals 5 after 3000 ms', function(done) {
+			//
+			// Arrange
+			//
 			console.debug("1st test.  time ",(new Date()).getTime() / 1000, " sec");
+
+			//
+			// Act
+			//
 			_calc.asyncAdd(2, 3);
 
+
+			//
+			// Assert
+			//
 			setTimeout( function() {
 				// when timeout expires check the result and call done callback to
 				// start next test.
@@ -45,9 +67,20 @@ describe("Calculator", function() {
 		// when 5000 expires
 		//
 		it('should not have result equals 5 before 3000 ms', function(done) {
+			//
+			// Arrange
+			//
 			console.debug("2nd test.  time ",(new Date()).getTime() / 1000, " sec");
+
+			//
+			// Act
+			//
 			_calc.asyncAdd(2, 3);
 
+
+			//
+			// Assert
+			//
 			setTimeout( function() {
 				expect(_calc._result).not.toBe(5);
 				done();
@@ -70,9 +103,21 @@ describe("Calculator", function() {
 
 
 		it('should have result equals 5 after 3000 ms', function() {
+			//
+			// Arrange
+			//
 			console.debug("1st test.  time ",(new Date()).getTime() / 1000, " sec");
+
+			//
+			// Act
+			//
 			_calc.asyncAdd(2, 3);
 			jasmine.clock().tick(3100);
+
+
+			//
+			// Assert
+			//
 			expect(_calc._result).toBe(5);
 		});
 
@@ -81,9 +126,20 @@ describe("Calculator", function() {
 		// when 5000 expires
 		//
 		it('should not have result equals 5 before 3000 ms', function() {
+			//
+			// Arrange
+			//
+
+			//
+			// Act
+			//
 			console.debug("2nd test.  time ",(new Date()).getTime() / 1000, " sec");
 			_calc.asyncAdd(2, 3);
 			jasmine.clock().tick(1000);
+
+			//
+			// Assert
+			//
 			expect(_calc._result).not.toBe(5);
 		});
 
