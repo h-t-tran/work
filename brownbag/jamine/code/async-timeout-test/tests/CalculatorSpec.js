@@ -4,7 +4,7 @@ describe("Calculator", function() {
 	var _calc;
 
 
-	xdescribe('asyncAdd', function() {
+	describe('asyncAdd', function() {
 		beforeEach(function() {
 			_calc = new Calculator();
 			_calc._result = 0;
@@ -23,11 +23,11 @@ describe("Calculator", function() {
 			//
 			// Assert
 			//
-			expect(_calc._result).toBe(5);
+			expect(_calc._result).not.toBe(5);
 		});
 	});
 
-	describe('asyncAdd using done callback', function() {
+	xdescribe('asyncAdd using done callback', function() {
 
 		beforeEach(function() {
 			_calc = new Calculator();
@@ -89,7 +89,8 @@ describe("Calculator", function() {
 		}, 4000);
 
 	});
-	describe('asyncAdd  using jasmine.clock', function() {
+
+	xdescribe('asyncAdd  using jasmine.clock', function() {
 
 		beforeEach(function() {
 			_calc = new Calculator();
