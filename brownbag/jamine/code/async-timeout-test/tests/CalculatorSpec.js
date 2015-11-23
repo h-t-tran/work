@@ -4,7 +4,7 @@ describe("Calculator", function() {
 	var _calc;
 
 
-	describe('asyncAdd', function() {
+	xdescribe('asyncAdd', function() {
 		beforeEach(function() {
 			_calc = new Calculator();
 			_calc._result = 0;
@@ -90,7 +90,7 @@ describe("Calculator", function() {
 
 	});
 
-	xdescribe('asyncAdd  using jasmine.clock', function() {
+	describe('asyncAdd  using jasmine.clock', function() {
 
 		beforeEach(function() {
 			_calc = new Calculator();

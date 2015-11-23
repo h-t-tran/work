@@ -9,7 +9,7 @@ describe("Calculator", function() {
 			_calc = new Calculator();
 		});
 
-		it('should invoke call $.ajax() once', function() {
+		xit('should invoke call $.ajax() once', function() {
 
 			//
 			// Arrange
@@ -36,7 +36,7 @@ describe("Calculator", function() {
 			expect($.ajax.calls.count()).toEqual(1);
 		});
 
-		it('should invoke success callback if REST call is successful', function() {
+		xit('should invoke success callback if REST call is successful', function() {
 
 			//
 			// Arrange
