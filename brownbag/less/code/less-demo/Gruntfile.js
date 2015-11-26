@@ -29,7 +29,8 @@ module.exports = function(grunt) {
               //
               // Watch for changes of LESS files
               //
-              'app/css/**/*.less'
+              './app/css/**/*.less',
+              "./app/test.less"
           ],
 
 	  tasks: [ 'less' ]

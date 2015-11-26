@@ -1,9 +1,15 @@
 @import "variables.less";
+@import "common.less";
+
+@login-form-width:  400px;
 
 #container
 {
     margin-top:5px;
-    width: 800px;
+
+    /* designer wants the container to be 2x the width of the login-form */
+    width: @login-form-width * 2;
+
     margin-left: auto;
     margin-right: auto;
     background: #FFF;
@@ -14,12 +20,14 @@
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 
-    color: #000;
+    color: @default-text-color;
 }
 
 #login-form
 {
-    background: #f8f8f8;
+    // invoke lighten()
+    background: lighten(@page-background-color, 25%);
+
     width: 400px;
     margin-left: auto;
     margin-right: auto;
@@ -30,8 +38,9 @@
     -webkit-border-radius: 5px;
 
     padding: 5px;
-
 }
+
+
 
 /* The login-form selector is repeated 3x.  Would be nice if we can do this
    #login-form {
@@ -78,7 +87,7 @@
     background: lightgray;
 
     /* we want this to be 1/4 of the width of 400 of the #login-form */
-    width: 100px;
+    width: @login-form-width / 4;
 
     border-radius: 5px;
     -moz-border-radius: 5px;

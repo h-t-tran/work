@@ -1,9 +1,16 @@
 @import "variables.less";
+@import "common.less";
+
+
+@security-form-width:  400px;
 
 #outter-container
 {
     margin-top:5px;
-    width: 800px;
+
+    /* designer wants the container to be 2x the width of the security-form */
+    width: @security-form-width * 2;
+
     margin-left: auto;
     margin-right: auto;
     background: #FFF;
@@ -14,13 +21,14 @@
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 
-    color: #000;
+    color: @default-text-color;
 }
 
 #security-form
 {
-    background: #f8f8f8;
-    width: 400px;
+    // use darken()
+    background: darken(@page-background-color, 20%);
+    width: @security-form-width;
     margin-left: auto;
     margin-right: auto;
     border: black 1px solid;
@@ -43,9 +51,8 @@
     display: block;
     border: 1px #000 solid;
 
-
     /* we want this to be 3/4 of the width of 400 of the #security-form */
-    width: 300px;
+    width: @security-form-width * 3 / 4;
 
     border-radius: 5px;
     -moz-border-radius: 5px;
